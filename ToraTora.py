@@ -3,11 +3,11 @@ import pygame
 
 from pygame.sprite import Group
 
-from Game import *
-from Game.Controllers import *
-from Game.Models import *
-from Game.Views import *
-from Game.Shared import gameSettings
+# from Game import *
+from Controllers import *
+from Models import *
+from Views import *
+from Shared import gameSettings
 
 class ToraTora:
     def __init__(self):

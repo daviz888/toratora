@@ -1,2 +1,2 @@
-from Game.Shared.gameObject import gameObject
-from Game.Shared.gameSettings import gameSettings
+from Shared.gameSettings import GameObject
+from Shared.gameSettings import GameSettings
