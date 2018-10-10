@@ -23,3 +23,8 @@ class GameSettings:
     
     # default fontname.
     FONT_NAME = 'Arial'
+
+    # sprites
+    SPRITE_PLAYER = os.path.join(GAME_ASSETS_PATH, "ASMZero.png")
+    # https://forum.unity.com/threads/2d-graphics-tropic-islands-sailing-ships-and-etc.429009/
+    # http://www.psd-dude.com/tutorials/create-a-3d-map-in-photoshop.aspx
