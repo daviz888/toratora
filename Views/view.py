@@ -10,7 +10,7 @@ class View:
         pass
 
     def getGame(self):
-        pass
+        return self.__game
 
     def handleEvents(self, events):
         pass

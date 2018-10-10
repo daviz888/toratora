@@ -3,11 +3,12 @@ import pygame
 from Game.Views.view import View
 from Game.Shared.gameSettings import GameSettings
 
-class ScoreBoard(View):
+class ScoreBoardView(View):
 
     def __init__(self, game):
-        super(ScoreBoard, self).__init__(game)
+        pass
        
     def render(self):
         # self.game().screen.blit(self.)
+        pass
 

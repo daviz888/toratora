@@ -5,6 +5,7 @@ class GameSettings:
     SCREEN_SIZE = [800, 600]
     FPS = 50
     POWER_UP_TIME = 5000
+    GAME_TITLE = "TORA TORA"
 
     # define colors.
     WHITE = (255, 255, 255)
@@ -25,6 +26,5 @@ class GameSettings:
     FONT_NAME = 'Arial'
 
     # sprites
-    SPRITE_PLAYER = os.path.join(GAME_ASSETS_PATH, "ASMZero.png")
-    # https://forum.unity.com/threads/2d-graphics-tropic-islands-sailing-ships-and-etc.429009/
-    # http://www.psd-dude.com/tutorials/create-a-3d-map-in-photoshop.aspx
+    SPRITE_PLAYER = os.path.join(GAME_ASSETS_PATH, "plane.png")
+    SPRITE_BULLET = os.path.join(GAME_ASSETS_PATH, "shot.png")
