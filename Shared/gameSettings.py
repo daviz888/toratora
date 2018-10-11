@@ -26,5 +26,5 @@ class GameSettings:
     FONT_NAME = 'Arial'
 
     # sprites
-    SPRITE_PLAYER = os.path.join(GAME_ASSETS_PATH, "plane.png")
+    SPRITE_PLAYER = os.path.join("Assets", "plane.png")
     SPRITE_BULLET = os.path.join(GAME_ASSETS_PATH, "shot.png")

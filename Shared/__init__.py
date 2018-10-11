@@ -1,2 +1,3 @@
-from Shared.gameSettings import GameObject
+
 from Shared.gameSettings import GameSettings
+from Shared.gameObject import GameObject

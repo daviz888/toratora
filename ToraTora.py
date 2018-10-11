@@ -3,13 +3,15 @@ import pygame
 
 from pygame.sprite import Group
 
-# from Game import *
+# from toratora import *
 from Controllers import *
-from Models import *
+from Model import *
 from Views import *
-from Shared import gameSettings
+from Shared import *
+
 
 class ToraTora:
+
     def __init__(self):
         self.__lives = 1
         self.__scores = 0
@@ -17,19 +19,19 @@ class ToraTora:
         self.__level = Level(self)
         self.__level.load(0)
     
-        self.__player = Player()
-        self.__allSprites = Group()
+
 
         pygame.init()
         pygame.mixer.init()
-        pygame.display.set_caption(gameSettings.GAME_TITLE)
+        pygame.display.set_caption(GameSettings.GAME_TITLE)
 
         self.__clock = pygame.time.Clock()
 
-        self.screen = pygame.display.set_mode(gameSettings.SCREEN_SIZE, pygame.DOUBLEBUF, 32)
+        self.screen = pygame.display.set_mode(GameSettings.SCREEN_SIZE, pygame.DOUBLEBUF, 32)
 
         pygame.mouse.set_visible(0)
-
+        self.__player = Player()
+        self.__allSprites = Group()
         self.__views = (
             PlayingView(self),
             GameOverView(self),
@@ -37,15 +39,16 @@ class ToraTora:
             ScoreBoardView(self)
         )
         
-        self.__currentView = 1
+        self.__currentView = 0
         self.allSprites = Group()
         self.allSprites.add(self.__player)
 
     def start(self):
-        while True:
-            self.__clock.tick(gameSettings.FPS)
 
-            self.screen.fill(gameSettings.BLACK)
+        while True:
+            self.__clock.tick(GameSettings.FPS)
+
+            self.screen.fill(GameSettings.BLACK)
 
             currentView = self.__views[self.__currentView]
             currentView.handleEvents(pygame.event.get())
@@ -53,21 +56,18 @@ class ToraTora:
 
             pygame.display.update()
 
-    
     def changeView(self):
         pass
 
     def getScore(self):
         pass
-
     
     def increaseLives(self):
         pass
-
 
     def reset(self):
         pass
 
     
-if __name__== "__main__":
-    ToraTora.start()
+if __name__ == "__main__":
+    ToraTora().start()

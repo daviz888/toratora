@@ -1,7 +1,7 @@
 import pygame
 
-from Game.Views.view import View
-from Game.Shared.gameSettings import GameSettings
+from Views.view import View
+from Shared.gameSettings import GameSettings
 
 class ScoreBoardView(View):
 

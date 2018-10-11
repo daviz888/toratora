@@ -1,1 +1,1 @@
-from Game.ToraTora import ToraTora
+from ToraTora import ToraTora

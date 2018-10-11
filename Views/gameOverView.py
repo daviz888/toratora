@@ -1,13 +1,13 @@
-import pygame
-from Game.Views.view import View
-from Game.Shared import *
+# import pygame
+from Views.view import View
+# from Views.gameOverView import  GameOverView
+# from Shared.gameSettings import *
+
 
 class GameOverView(View):
 
     def __init__(self, game):
-        pass
+        self.__game = game
 
     def render(self):
         pass
-
-        
