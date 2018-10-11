@@ -18,8 +18,6 @@ class ToraTora:
 
         self.__level = Level(self)
         self.__level.load(0)
-    
-
 
         pygame.init()
         pygame.mixer.init()
@@ -31,7 +29,7 @@ class ToraTora:
 
         pygame.mouse.set_visible(0)
         self.__player = Player()
-        self.__allSprites = Group()
+        # self.__allSprites = Group()
         self.__views = (
             PlayingView(self),
             GameOverView(self),
@@ -40,6 +38,8 @@ class ToraTora:
         )
         
         self.__currentView = 0
+
+        self.playerBullets = Group()
         self.allSprites = Group()
         self.allSprites.add(self.__player)
 
@@ -55,6 +55,12 @@ class ToraTora:
             currentView.render()
 
             pygame.display.update()
+
+    def getPlayer(self):
+        return self.__player
+
+    def spawnMob(self):
+        pass
 
     def changeView(self):
         pass

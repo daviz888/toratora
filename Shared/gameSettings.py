@@ -27,4 +27,4 @@ class GameSettings:
 
     # sprites
     SPRITE_PLAYER = os.path.join("Assets", "plane.png")
-    SPRITE_BULLET = os.path.join(GAME_ASSETS_PATH, "shot.png")
+    SPRITE_BULLET = os.path.join("Assets", "shot.png")

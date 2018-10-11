@@ -3,6 +3,7 @@ import pygame
 from pygame.sprite import Sprite
 
 from Shared import *
+from Model.bullet import Bullet
 
 class Player(Sprite):
 
@@ -51,3 +52,8 @@ class Player(Sprite):
             self.rect.top = 0
         if self.rect.bottom >= GameSettings.SCREEN_SIZE[1]:
             self.rect.bottom = GameSettings.SCREEN_SIZE[1]
+
+    def shoot(self):
+
+        self.bullets = []
+        self.bullets.append(Bullet(self.rect.centerx, self.rect.top))
