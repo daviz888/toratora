@@ -9,7 +9,8 @@ class View:
         self.__texts = []
 
     def render(self):
-        pass
+        for text in self.__texts:
+            self.__game.screen.blit(text[0], text[1])
 
     def getGame(self):
         return self.__game
@@ -20,6 +21,6 @@ class View:
     def clearText(self):
         self.__texts = []
 
-    def addText(self, string, x=0, y=0, color=GameSettings.WHITE, background=GameSettings.BLACK, size=18):
+    def addText(self, string, x=0, y=0, color=GameSettings.WHITE, background=GameSettings.BLACK, size=17):
         font = pygame.font.Font(GameSettings.FONT_NAME, size)
-        self.__texts.append([font.render(string, True, color, background, (x,y))])
+        self.__texts.append([font.render(string, True, color, background), (x, y)])

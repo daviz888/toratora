@@ -16,6 +16,10 @@ class Player(Sprite):
         self.imageSize = self.image.get_size()
         self.rect.centerx = GameSettings.SCREEN_SIZE[0] / 2
         self.rect.bottom = GameSettings.SCREEN_SIZE[1]
+        self.bullets = []
+        self.speedx = 0
+        self.hidden = False
+        self.hide_time = pygame.time.get_ticks()
 
     def getRect(self):
         return self.rect
@@ -33,6 +37,12 @@ class Player(Sprite):
         pass
 
     def update(self):
+        # hide/unhide the player.
+        if self.hidden and pygame.time.get_ticks() - self.hide_time > 1000:
+            self.hidden = False
+            self.rect.centerx = GameSettings.SCREEN_SIZE[0] / 2
+            self.rect.bottom = GameSettings.SCREEN_SIZE[1]
+
         self.speedx = 0
         keystate = pygame.key.get_pressed()
         if keystate[pygame.K_LEFT]:
@@ -54,6 +64,13 @@ class Player(Sprite):
             self.rect.bottom = GameSettings.SCREEN_SIZE[1]
 
     def shoot(self):
-
-        self.bullets = []
+        self.bullets.clear()
         self.bullets.append(Bullet(self.rect.centerx, self.rect.top))
+        self.bullets[0].sfx.play()
+
+    def hide(self):
+        self.hidden = True
+        self.hide_time = pygame.time.get_ticks()
+        self.rect.center = (GameSettings.SCREEN_SIZE[0]/2, GameSettings.SCREEN_SIZE[1] + 200)
+
+

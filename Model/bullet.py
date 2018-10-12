@@ -16,6 +16,7 @@ class Bullet(Sprite):
         self.rect.bottom = y
         self.speedy = -10
         self.__direction = direction
+        self.sfx = pygame.mixer.Sound(GameSettings.SFX_LASER)
 
     def update(self):
         self.rect.x += self.__direction
