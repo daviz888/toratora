@@ -32,9 +32,13 @@ class GameSettings:
     SPRITE_LASER = os.path.join(ASSETS_PATH, "laserRed16.png")
     SPRITE_PLAYER_EXPLODE = os.path.join(ASSETS_PATH, "explosionframes.png")
     SPRITE_MOB_EXPLODE = os.path.join(ASSETS_PATH, 'explosion.png')
+    SPRITE_POWER = os.path.join(ASSETS_PATH, "powerup.png")
 
     SFX_LASER = os.path.join(ASSETS_PATH, "sfx_laser2.ogg")
     SFX_EXPLOSION = os.path.join(ASSETS_PATH, "rumble1.ogg")
+    SFX_POWER = os.path.join(ASSETS_PATH, "sfx_shieldUp.ogg")
 
+    # power up types.
+    POWER_TYPE = ["bullet", "shield", 'star', "bolt", "points", "repair"]
     EXPLOSION_SCALE = (64, 64)
     PLAYER_LIVES = 3

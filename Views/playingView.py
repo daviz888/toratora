@@ -1,6 +1,8 @@
 import pygame
+import random
 from Views.view import View
 from Model.explosion import Explosion
+from Model.powerups import Powerup
 from Shared.gameSettings import GameSettings
 
 class PlayingView(View):
@@ -23,6 +25,14 @@ class PlayingView(View):
                 explosion.sfx.play()
                 game.allSprites.add(explosion)
 
+                # Randomize the chances of getting a powerup.
+                if random.random() > 0.8:
+                    power = Powerup(hit.rect.center)
+                    game.powerups.add(power)
+                    game.allSprites.add(power)
+
+            game.spawnMobs(1)
+
         # Check for mob and player collision.
         playerhits = pygame.sprite.spritecollide(game.getPlayer(), game.mobs, True, pygame.sprite.collide_circle)
         if playerhits:
@@ -43,9 +53,6 @@ class PlayingView(View):
             game.spawnMobs(2)
 
         self.clearText()
-        # score = "Score: {:,}".format(int(round(game.getScore(), -1)))
-        # self.addText(score, GameSettings.SCREEN_SIZE[0] - (len(score) + 100), 20)
-        # # self.addText(score, 200, 20)
         self.getGame().getScoreboard().render()
         game.allSprites.draw(game.screen)
         pygame.display.flip()

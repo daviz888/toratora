@@ -45,6 +45,7 @@ class ToraTora:
 
         self.playerBullets = Group()
         self.mobs = Group()
+        self.powerups = Group()
         self.allSprites = Group()
         self.allSprites.add(self.__player)
         self.spawnMobs(10)
