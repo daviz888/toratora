@@ -7,8 +7,12 @@ class View:
     def __init__(self, game):
         self.__game = game
         self.__texts = []
+        self.__backround = pygame.image.load(GameSettings.SPRITE_BG).convert()
+        self.__backround = pygame.transform.scale(self.__backround, GameSettings.SCREEN_SIZE)
+        self.__backround_rect = self.__backround.get_rect()
 
     def render(self):
+        self.__game.screen.blit(self.__backround, self.__backround_rect)
         for text in self.__texts:
             self.__game.screen.blit(text[0], text[1])
 

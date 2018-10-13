@@ -19,8 +19,10 @@ class Powerup(Sprite):
         self.sheetSize = self.sheet.get_size()
         self.power_frames = []
         self.prep_sheet()
-        self.power_type = random.choice(GameSettings.POWER_TYPE)
-        self.image = self.power_frames[random.randrange(6)]
+        self.power_type = random.choice(list(GameSettings.POWER_TYPE))
+        print(self.power_type)
+        # self.image = self.power_frames[random.randrange(6)]
+        self.image = self.power_frames[self.power_type]
         self.rect = self.image.get_rect()
         self.rect.center = center
         self.sfx = pygame.mixer.Sound(GameSettings.SFX_POWER)

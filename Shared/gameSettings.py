@@ -27,18 +27,26 @@ class GameSettings:
     FONT_NAME = pygame.font.match_font('arial')
 
     # sprites
-    SPRITE_PLAYER = os.path.join(ASSETS_PATH, "plane.png")
-    SPRITE_BULLET = os.path.join(ASSETS_PATH, "shot.png")
+    SPRITE_BG = os.path.join(ASSETS_PATH,"background.png")
+    SPRITE_PLAYER = os.path.join(ASSETS_PATH, "A6MZero.png")
+    SPRITE_BULLET = os.path.join(ASSETS_PATH, "shot1.png")
     SPRITE_LASER = os.path.join(ASSETS_PATH, "laserRed16.png")
     SPRITE_PLAYER_EXPLODE = os.path.join(ASSETS_PATH, "explosionframes.png")
-    SPRITE_MOB_EXPLODE = os.path.join(ASSETS_PATH, 'explosion.png')
+    SPRITE_MOB_EXPLODE = os.path.join(ASSETS_PATH, "explosion.png")
     SPRITE_POWER = os.path.join(ASSETS_PATH, "powerup.png")
-
     SFX_LASER = os.path.join(ASSETS_PATH, "sfx_laser2.ogg")
     SFX_EXPLOSION = os.path.join(ASSETS_PATH, "rumble1.ogg")
     SFX_POWER = os.path.join(ASSETS_PATH, "sfx_shieldUp.ogg")
 
     # power up types.
-    POWER_TYPE = ["bullet", "shield", 'star', "bolt", "points", "repair"]
+    POWER_TYPE = {
+        0: "bullet",
+        1: "shield",
+        2: "star",
+        3: "bolt",
+        4: "points",
+        5: "repair"
+    }
+
     EXPLOSION_SCALE = (64, 64)
     PLAYER_LIVES = 3

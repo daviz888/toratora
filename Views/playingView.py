@@ -25,7 +25,7 @@ class PlayingView(View):
                 explosion.sfx.play()
                 game.allSprites.add(explosion)
 
-                # Randomize the chances of getting a powerup.
+                # Randomize the chances of getting a power up.
                 if random.random() > 0.8:
                     power = Powerup(hit.rect.center)
                     game.powerups.add(power)
@@ -33,10 +33,16 @@ class PlayingView(View):
 
             game.spawnMobs(1)
 
+        # Check if player and power ups collision.
+        power_hits = pygame.sprite.spritecollide(game.getPlayer(), game.powerups, True)
+        if power_hits:
+            for hits in power_hits:
+                hits.sfx.play()
+
         # Check for mob and player collision.
-        playerhits = pygame.sprite.spritecollide(game.getPlayer(), game.mobs, True, pygame.sprite.collide_circle)
-        if playerhits:
-            for hit in playerhits:
+        player_hits = pygame.sprite.spritecollide(game.getPlayer(), game.mobs, True, pygame.sprite.collide_circle)
+        if player_hits:
+            for hit in player_hits:
                 game.reduceShield(hit.radius)
                 explosion = Explosion(GameSettings.SPRITE_MOB_EXPLODE, GameSettings.EXPLOSION_SCALE, hit.rect.center)
                 explosion.sfx.play()

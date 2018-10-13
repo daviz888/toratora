@@ -113,6 +113,9 @@ class ToraTora:
     def getScoreboard(self):
         return self.__scoreboard
 
+    def powerup(self, power):
+        pass
+
     def reset(self):
         pass
 
