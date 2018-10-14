@@ -113,8 +113,9 @@ class ToraTora:
     def getScoreboard(self):
         return self.__scoreboard
 
-    def powerup(self, power):
-        pass
+    def addPower(self, power):
+        self.__player.power_up(power)
+        print(power)
 
     def reset(self):
         pass

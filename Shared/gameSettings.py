@@ -28,7 +28,7 @@ class GameSettings:
 
     # sprites
     SPRITE_BG = os.path.join(ASSETS_PATH,"background.png")
-    SPRITE_PLAYER = os.path.join(ASSETS_PATH, "A6MZero.png")
+    SPRITE_PLAYER = os.path.join(ASSETS_PATH, "plane.png")
     SPRITE_BULLET = os.path.join(ASSETS_PATH, "shot1.png")
     SPRITE_LASER = os.path.join(ASSETS_PATH, "laserRed16.png")
     SPRITE_PLAYER_EXPLODE = os.path.join(ASSETS_PATH, "explosionframes.png")

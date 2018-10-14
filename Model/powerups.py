@@ -20,8 +20,6 @@ class Powerup(Sprite):
         self.power_frames = []
         self.prep_sheet()
         self.power_type = random.choice(list(GameSettings.POWER_TYPE))
-        print(self.power_type)
-        # self.image = self.power_frames[random.randrange(6)]
         self.image = self.power_frames[self.power_type]
         self.rect = self.image.get_rect()
         self.rect.center = center

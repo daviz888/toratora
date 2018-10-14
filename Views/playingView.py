@@ -37,6 +37,7 @@ class PlayingView(View):
         power_hits = pygame.sprite.spritecollide(game.getPlayer(), game.powerups, True)
         if power_hits:
             for hits in power_hits:
+                game.addPower(hits.power_type)
                 hits.sfx.play()
 
         # Check for mob and player collision.

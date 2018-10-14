@@ -9,10 +9,11 @@ class Player(Sprite):
 
     def __init__(self):
         super().__init__()
+
         self.image = pygame.image.load(GameSettings.SPRITE_PLAYER).convert_alpha()
         self.rect = self.image.get_rect()
         self.radius = int(self.rect.width * .8 / 2)
-        # pygame.draw.circle(self.__image, gameSettings.RED, self.__rect.center, self.__radius)
+        # pygame.draw.circle(self.image, pygame.Color(0, 255, 0, 100), self.rect.center, self.radius)
         self.imageSize = self.image.get_size()
         self.rect.centerx = GameSettings.SCREEN_SIZE[0] / 2
         self.rect.bottom = GameSettings.SCREEN_SIZE[1]
@@ -20,21 +21,27 @@ class Player(Sprite):
         self.speedx = 0
         self.hidden = False
         self.hide_time = pygame.time.get_ticks()
+        self.__powerups = []
+        self.__guns = 4
+        self.__shield = 0
+        self.__squad = 0
 
-    def getRect(self):
-        return self.rect
+    def power_up(self, power):
 
-    def getImage(self):
-        return self.image
-
-    def getRadius(self):
-        return self.radius
-
-    def getImageSize(self):
-        return self.imageSize
-
-    def powerUp(self):
-        pass
+        if power == 0:
+            if self.__guns < 4:
+                self.__guns += 1
+        elif power == 1:
+            self.__shield = 100
+        elif power == 2:
+            pass
+        elif power == 3:
+            pass
+        elif power == 4:
+            pass
+        elif power == 5:
+            pass
+        # self.__powerups.append(power)
 
     def update(self):
         # hide/unhide the player.
@@ -65,12 +72,35 @@ class Player(Sprite):
 
     def shoot(self):
         self.bullets.clear()
-        self.bullets.append(Bullet(self.rect.centerx, self.rect.top))
+
+        if self.__guns == 1:
+            self.bullets.append(Bullet(self.rect.centerx, self.rect.top))
+        elif self.__guns == 2:
+            self.bullets.append(Bullet(self.rect.left, self.rect.centery))
+            self.bullets.append(Bullet(self.rect.right, self.rect.centery))
+        elif self.__guns == 3:
+            self.bullets.append(Bullet(self.rect.centerx, self.rect.top))
+            self.bullets.append(Bullet(self.rect.left, self.rect.centery))
+            self.bullets.append(Bullet(self.rect.right, self.rect.centery))
+        elif self.__guns == 4:
+            x = int(self.rect.width / 4)
+
+            for i in range(self.__guns):
+                self.bullets.append(Bullet(self.rect.left + (i * x), self.rect.centery))
+
         self.bullets[0].sfx.play()
+
+        print("centery:", self.rect.centery)
+        print("centerx:", self.rect.centerx)
+        print("left:", self.rect.left)
+        print("right", self.rect.right)
+        print("image size:", self.imageSize)
+        print("image Width:", self.rect.width)
 
     def hide(self):
         self.hidden = True
         self.hide_time = pygame.time.get_ticks()
         self.rect.center = (GameSettings.SCREEN_SIZE[0]/2, GameSettings.SCREEN_SIZE[1] + 200)
+
 
 
