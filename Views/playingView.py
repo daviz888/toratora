@@ -31,7 +31,7 @@ class PlayingView(View):
                     game.powerups.add(power)
                     game.allSprites.add(power)
 
-            game.spawnMobs(1)
+            game.create_squad()
 
         # Check if player and power ups collision.
         power_hits = pygame.sprite.spritecollide(game.getPlayer(), game.powerups, True)
@@ -57,7 +57,7 @@ class PlayingView(View):
                     game.getPlayer().hide()
                     game.allSprites.add(explosion)
 
-            game.spawnMobs(2)
+            game.spawnMobs(1)
 
         self.clearText()
         self.getGame().getScoreboard().render()
@@ -80,3 +80,4 @@ class PlayingView(View):
                     for bullet in self.getGame().getPlayer().bullets:
                         self.getGame().playerBullets.add(bullet)
                         self.getGame().allSprites.add(bullet)
+

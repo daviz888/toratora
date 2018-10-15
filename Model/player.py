@@ -22,7 +22,7 @@ class Player(Sprite):
         self.hidden = False
         self.hide_time = pygame.time.get_ticks()
         self.__powerups = []
-        self.__guns = 4
+        self.__guns = 1
         self.__shield = 0
         self.__squad = 0
 
@@ -33,11 +33,11 @@ class Player(Sprite):
                 self.__guns += 1
         elif power == 1:
             self.__shield = 100
-        elif power == 2:
+        elif power == 2: #star
             pass
-        elif power == 3:
+        elif power == 3: #bolt
             pass
-        elif power == 4:
+        elif power == 4: #points
             pass
         elif power == 5:
             pass
@@ -78,24 +78,21 @@ class Player(Sprite):
         elif self.__guns == 2:
             self.bullets.append(Bullet(self.rect.left, self.rect.centery))
             self.bullets.append(Bullet(self.rect.right, self.rect.centery))
-        elif self.__guns == 3:
+        elif self.__guns >= 3:
             self.bullets.append(Bullet(self.rect.centerx, self.rect.top))
-            self.bullets.append(Bullet(self.rect.left, self.rect.centery))
-            self.bullets.append(Bullet(self.rect.right, self.rect.centery))
-        elif self.__guns == 4:
-            x = int(self.rect.width / 4)
-
+        #     # self.bullets.append(Bullet(self.rect.left, self.rect.centery))
+        #     # self.bullets.append(Bullet(self.rect.right, self.rect.centery))
+        #     x = int(self.rect.width / 1)
+        #     for i in range(self.__guns -1 ):
+        #         self.bullets.append(Bullet(self.rect.left + (i * x), self.rect.centery))
+        #         print(self.rect.left + (i * x))
+        #
+        # elif self.__guns == 4:
+            x = int(self.rect.width / (self.__guns - 1))
             for i in range(self.__guns):
                 self.bullets.append(Bullet(self.rect.left + (i * x), self.rect.centery))
-
+                print(self.rect.left + (i * x))
         self.bullets[0].sfx.play()
-
-        print("centery:", self.rect.centery)
-        print("centerx:", self.rect.centerx)
-        print("left:", self.rect.left)
-        print("right", self.rect.right)
-        print("image size:", self.imageSize)
-        print("image Width:", self.rect.width)
 
     def hide(self):
         self.hidden = True

@@ -48,7 +48,8 @@ class ToraTora:
         self.powerups = Group()
         self.allSprites = Group()
         self.allSprites.add(self.__player)
-        self.spawnMobs(10)
+        # self.spawnMobs(10)
+        self.create_squad()
 
 
     def start(self):
@@ -116,6 +117,20 @@ class ToraTora:
     def addPower(self, power):
         self.__player.power_up(power)
         print(power)
+
+    def create_squad(self):
+        ship = Plane()
+
+        for n in range(5):
+            ship = Plane()
+            ship_width = ship.rect.width
+            ship.x = ship_width
+            ship.rect.x = ship.x
+            ship.rect.y = ship.rect.height * (n * -1)
+            print(ship.x)
+            print(ship.rect.y)
+            self.allSprites.add(ship)
+            self.mobs.add(ship)
 
     def reset(self):
         pass
