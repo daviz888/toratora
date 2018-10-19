@@ -9,59 +9,39 @@ class PlayingView(View):
 
     def __init__(self, game):
         super(PlayingView, self).__init__(game)
+        self.__last_update = pygame.time.get_ticks()
 
     def render(self):
         super(PlayingView, self).render()
 
-        game = self.getGame()
-        game.allSprites.update()
+        self.__game = self.getGame()
+        self.__game.allSprites.update()
 
-        # check for mob and bullets collision.
-        mobhits = pygame.sprite.groupcollide(game.mobs, game.playerBullets, True, True)
-        if mobhits:
-            for hit in mobhits:
-                game.increaseScore(hit.getHitPoints())
-                explosion = Explosion(GameSettings.SPRITE_MOB_EXPLODE, GameSettings.EXPLOSION_SCALE, hit.rect.center)
-                explosion.sfx.play()
-                game.allSprites.add(explosion)
+        # spawn enemy squad.
+        # current = pygame.time.get_ticks()
+        # if current - self.__last_update > GameSettings.ENEMY_INTERVAL:
+        #     self.__last_update = current
+        #     self.__game.create_squad()
 
-                # Randomize the chances of getting a power up.
-                if random.random() > 0.8:
-                    power = Powerup(hit.rect.center)
-                    game.powerups.add(power)
-                    game.allSprites.add(power)
+        if len(self.__game.enemy_squad) <= 0:
+            self.__game.create_squad()
 
-            game.create_squad()
+        if len(self.__game.mobs) <= 0:
+            self.__game.spawnMobs(6)
 
-        # Check if player and power ups collision.
-        power_hits = pygame.sprite.spritecollide(game.getPlayer(), game.powerups, True)
-        if power_hits:
-            for hits in power_hits:
-                game.addPower(hits.power_type)
-                hits.sfx.play()
+        self.check_player_bullet_collision(self.__game.enemy_squad)
+        self.check_player_bullet_collision(self.__game.mobs)
+        self.check_player_power_collision(self.__game.powerups)
+        self.check_player_collision(self.__game.enemy_bullets)
+        self.check_player_collision(self.__game.enemy_squad)
+        self.check_player_collision(self.__game.mobs)
 
-        # Check for mob and player collision.
-        player_hits = pygame.sprite.spritecollide(game.getPlayer(), game.mobs, True, pygame.sprite.collide_circle)
-        if player_hits:
-            for hit in player_hits:
-                game.reduceShield(hit.radius)
-                explosion = Explosion(GameSettings.SPRITE_MOB_EXPLODE, GameSettings.EXPLOSION_SCALE, hit.rect.center)
-                explosion.sfx.play()
-                game.allSprites.add(explosion)
-
-                if game.getShield() <= 0:
-                    game.reduceLives()
-                    game.increaseShield(100)
-                    explosion = Explosion(GameSettings.SPRITE_PLAYER_EXPLODE, GameSettings.EXPLOSION_SCALE, game.getPlayer().rect.center)
-                    explosion.sfx.play()
-                    game.getPlayer().hide()
-                    game.allSprites.add(explosion)
-
-            game.spawnMobs(1)
+        if self.__game.getLives() == 0:
+            self.__game.game_over = True
 
         self.clearText()
         self.getGame().getScoreboard().render()
-        game.allSprites.draw(game.screen)
+        self.__game.allSprites.draw(self.__game.screen)
         pygame.display.flip()
 
     def handleEvents(self, events):
@@ -81,3 +61,47 @@ class PlayingView(View):
                         self.getGame().playerBullets.add(bullet)
                         self.getGame().allSprites.add(bullet)
 
+    def check_player_collision(self, other):
+        player_hits = pygame.sprite.spritecollide(self.__game.getPlayer(),
+                                                  other, True,
+                                                  pygame.sprite.collide_circle)
+        if player_hits:
+            for hit in player_hits:
+                self.__game.reduceShield(hit.radius)
+                self.__game.power_down()
+                explosion = Explosion(GameSettings.SPRITE_MOB_EXPLODE, GameSettings.EXPLOSION_SCALE, hit.rect.center)
+                explosion.sfx.play()
+                self.__game.allSprites.add(explosion)
+
+                if self.__game.getShield() <= 0:
+                    self.__game.reduceLives()
+                    self.__game.increaseShield(100)
+                    explosion.sfx.play()
+                    self.__game.getPlayer().hide()
+                    self.__game.allSprites.add(explosion)
+
+
+    def check_player_bullet_collision(self, other):
+        # check for mob and bullets collision.
+        bullet_hits = pygame.sprite.groupcollide(other, self.__game.playerBullets, True, True)
+        if bullet_hits:
+            for hit in bullet_hits:
+                self.__game.increaseScore(hit.getHitPoints())
+                explosion = Explosion(GameSettings.SPRITE_MOB_EXPLODE, GameSettings.EXPLOSION_SCALE,
+                                      hit.rect.center)
+                explosion.sfx.play()
+                self.__game.allSprites.add(explosion)
+
+                # Randomize the chances of getting a power up.
+                if random.random() > 0.8:
+                    power = Powerup(hit.rect.center)
+                    self.__game.powerups.add(power)
+                    self.__game.allSprites.add(power)
+
+    def check_player_power_collision(self, other):
+        # Check if player and power ups collision.
+        power_hits = pygame.sprite.spritecollide(self.__game.getPlayer(), other, True)
+        if power_hits:
+            for hits in power_hits:
+                self.__game.add_power(hits.power_type)
+                hits.sfx.play()

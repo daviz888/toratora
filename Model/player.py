@@ -21,27 +21,18 @@ class Player(Sprite):
         self.speedx = 0
         self.hidden = False
         self.hide_time = pygame.time.get_ticks()
-        self.__powerups = []
-        self.__guns = 1
+        self.__weapon = 1
         self.__shield = 0
         self.__squad = 0
 
-    def power_up(self, power):
+    def weapon_up(self, bullet=1):
+        if (self.__weapon + bullet) < 5:
+                self.__weapon += bullet
+        else:
+            self.__weapon = bullet
 
-        if power == 0:
-            if self.__guns < 4:
-                self.__guns += 1
-        elif power == 1:
-            self.__shield = 100
-        elif power == 2: #star
-            pass
-        elif power == 3: #bolt
-            pass
-        elif power == 4: #points
-            pass
-        elif power == 5:
-            pass
-        # self.__powerups.append(power)
+    def weapon_down(self):
+        self.__weapon = 1
 
     def update(self):
         # hide/unhide the player.
@@ -73,31 +64,23 @@ class Player(Sprite):
     def shoot(self):
         self.bullets.clear()
 
-        if self.__guns == 1:
-            self.bullets.append(Bullet(self.rect.centerx, self.rect.top))
-        elif self.__guns == 2:
-            self.bullets.append(Bullet(self.rect.left, self.rect.centery))
-            self.bullets.append(Bullet(self.rect.right, self.rect.centery))
-        elif self.__guns >= 3:
-            self.bullets.append(Bullet(self.rect.centerx, self.rect.top))
-        #     # self.bullets.append(Bullet(self.rect.left, self.rect.centery))
-        #     # self.bullets.append(Bullet(self.rect.right, self.rect.centery))
-        #     x = int(self.rect.width / 1)
-        #     for i in range(self.__guns -1 ):
-        #         self.bullets.append(Bullet(self.rect.left + (i * x), self.rect.centery))
-        #         print(self.rect.left + (i * x))
-        #
-        # elif self.__guns == 4:
-            x = int(self.rect.width / (self.__guns - 1))
-            for i in range(self.__guns):
-                self.bullets.append(Bullet(self.rect.left + (i * x), self.rect.centery))
-                print(self.rect.left + (i * x))
+        if self.__weapon == 1:
+            self.bullets.append(Bullet(self.rect.centerx, self.rect.top, -10))
+        elif self.__weapon == 2:
+            self.bullets.append(Bullet(self.rect.left, self.rect.centery, -10))
+            self.bullets.append(Bullet(self.rect.right, self.rect.centery, -10))
+        elif self.__weapon >= 3:
+            self.bullets.append(Bullet(self.rect.centerx, self.rect.top, -10))
+            x = int(self.rect.width / (self.__weapon - 1))
+            for i in range(self.__weapon):
+                self.bullets.append(Bullet(self.rect.left + (i * x), self.rect.centery, -10))
         self.bullets[0].sfx.play()
 
     def hide(self):
         self.hidden = True
         self.hide_time = pygame.time.get_ticks()
         self.rect.center = (GameSettings.SCREEN_SIZE[0]/2, GameSettings.SCREEN_SIZE[1] + 200)
+
 
 
 

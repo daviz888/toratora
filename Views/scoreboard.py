@@ -3,6 +3,7 @@ import pygame
 from Views.view import View
 from Shared.gameSettings import GameSettings
 
+
 class ScoreBoardView(View):
     def __init__(self, game):
         super(ScoreBoardView, self).__init__(game)
@@ -17,9 +18,9 @@ class ScoreBoardView(View):
 
     def prep_score(self, score):
         str_score = "Score {:,}".format(int(round(score, -1)))
-        x = self.getGame().screen_rect.right - 100
+        x = self.getGame().screen_rect.right - 50
         y = 20
-        self.addText(str_score, x, y)
+        self.addText(str_score, x, y, GameSettings.WHITE, GameSettings.BLACK, 30)
 
     def prep_shield_bar(self):
         bar_fill = (self.getGame().getShield() / 100) * GameSettings.LIFE_BAR_LENGTH
@@ -35,3 +36,4 @@ class ScoreBoardView(View):
         for p in range(self.getGame().getLives()):
             coordinates = (5 + p * scale[0], 5)
             self.getGame().screen.blit(player_image, coordinates)
+

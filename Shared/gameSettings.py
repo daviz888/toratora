@@ -11,6 +11,7 @@ class GameSettings:
     # define colors.
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
+    TRANSPARENT = (0, 255, 0, 0)
     RED = (255, 0, 0)
     BLUE = (0, 0, 255)
     GREEN = (0, 255, 0)
@@ -50,3 +51,12 @@ class GameSettings:
 
     EXPLOSION_SCALE = (64, 64)
     PLAYER_LIVES = 3
+
+    ENEMY_INTERVAL = 6000
+    ENEMY_BULLET_HIT_POINTS = 10
+
+    VIEW_MENU = 0
+    VIEW_PLAY = 1
+    VIEW_GAME_OVER = 2
+    VIEW_HIGH_SCORE = 3
+    VIEW_SETTINGS = 4
