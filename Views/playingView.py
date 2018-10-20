@@ -9,12 +9,17 @@ class PlayingView(View):
 
     def __init__(self, game):
         super(PlayingView, self).__init__(game)
+        self.__background = pygame.image.load(GameSettings.SPRITE_BG).convert()
+        self.__background = pygame.transform.scale(self.__background, GameSettings.SCREEN_SIZE)
+        self.__background_rect = self.__background.get_rect()
+
+
         self.__last_update = pygame.time.get_ticks()
 
     def render(self):
         super(PlayingView, self).render()
-
         self.__game = self.getGame()
+        self.__game.screen.blit(self.__background, self.__background_rect)
         self.__game.allSprites.update()
 
         # spawn enemy squad.

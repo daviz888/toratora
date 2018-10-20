@@ -15,6 +15,10 @@ class GameSettings:
     RED = (255, 0, 0)
     BLUE = (0, 0, 255)
     GREEN = (0, 255, 0)
+    GRAY = (128, 128, 128)
+    LIGHT_GRAY = (211, 211, 211)
+    DARK_GRAY = (169, 169, 169)
+    YELLOW = (255, 255, 0)
 
     # define asset folders paths.
     # GAME_PATH = os.path.join("Assets")

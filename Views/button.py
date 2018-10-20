@@ -1,6 +1,6 @@
-'''
+"""
 button.py
-'''
+"""
 
 import pygame
 from Shared.gameSettings import GameSettings
@@ -9,33 +9,35 @@ from Shared.gameSettings import GameSettings
 class Button():
     """Create a Button class object"""
 
-    def __init__(self, ui_settings, screen, text):
+    def __init__(self, screen, text, width=200, height=50, textSize=48):
         """Initialize attributes"""
-        self.ui_settings = ui_settings
-        self.screen = screen
-        self.screen_rect = screen.get_rect()
-        # self.text = text
+        self.__screen = screen
+        self.__screen_rect = screen.get_rect()
+        self.__text = text
 
-        # set the dimension and properties of the buttonself.
-        self.width, self.height = 200, 50
-        self.button_color = ui_settings.GREEN
-        self.font = pygame.font.SysFont(ui_settings.default_font, 48)
+        # set the dimension and properties of the button.
+        self.__width, self.__height = width, height
+        self.__button_color = GameSettings.WHITE
+        self.__font = pygame.font.SysFont(GameSettings.FONT_NAME, textSize)
 
         # build the button's rect object and center itself.
-        self.rect = pygame.Rect(0, 0, self.width, self.height)
-        self.rect.center = self.screen_rect.center
+        self.__button_rect = pygame.Rect(0, 0, self.__width, self.__height)
+        self.__button_rect.center = self.__screen_rect.center
 
-        # prep the text of the buttonself.
-        self.prep_text(text)
+        # prep the text of the button.
+        self.__prep_text()
+        self.__draw_button()
 
-    def prep_text(self, text):
+    def __prep_text(self):
         """render text into image and center the text on the button."""
-        self.text_image = self.font.render(text, True, self.ui_settings.WHITE,
-                                           self.ui_settings.GREEN)
-        self.text_image_rect = self.text_image.get_rect()
-        self.text_image_rect.center = self.rect.center
+        self.__text_image = self.__font.render(self.__text, True, GameSettings.WHITE, None)
+        self.__text_image_rect = self.__text_image.get_rect()
+        self.__text_image_rect.center = self.__button_rect.center
 
-    def draw_button(self):
+    def __draw_button(self):
         """draw the button and the message."""
-        self.screen.fill(self.ui_settings.GREEN, self.rect)
-        self.screen.blit(self.text_image, self.text_image_rect)
+        self.__screen.fill(GameSettings.GRAY, self.__button_rect)
+        self.__screen.blit(self.__text_image, self.__text_image_rect)
+
+    def get_rect(self):
+        return self.__button_rect
