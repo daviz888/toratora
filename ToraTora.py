@@ -35,7 +35,7 @@ class ToraTora:
             MenuView(self),
             PlayingView(self),
             GameOverView(self),
-            ScoreBoardView(self)
+            UserView(self),
         )
         
         self.__currentView = GameSettings.VIEW_MENU

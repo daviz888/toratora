@@ -7,6 +7,7 @@ class GameSettings:
     FPS = 50
     POWER_UP_TIME = 5000
     GAME_TITLE = "TORA TORA"
+    SALT = 'daffy'
 
     # define colors.
     WHITE = (255, 255, 255)
@@ -23,6 +24,7 @@ class GameSettings:
     # define asset folders paths.
     # GAME_PATH = os.path.join("Assets")
     ASSETS_PATH = os.path.join("Assets")
+    USER_DATA = os.path.join("Data", "userscore.dat")
 
     # define player life bars indicator.
     LIFE_BAR_LENGTH = 100
