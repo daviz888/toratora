@@ -53,6 +53,9 @@ class View:
         # self.__game.screen.blit(self.text_image, self.text_image_rect)
         self._play_button = Button(self.__game.screen, text)
 
+    @staticmethod
+    def show_cursor(flag=True):
+        pygame.mouse.set_visible(flag)
 
 
 

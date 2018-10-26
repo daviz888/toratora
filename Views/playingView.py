@@ -12,8 +12,6 @@ class PlayingView(View):
         self.__background = pygame.image.load(GameSettings.SPRITE_BG).convert()
         self.__background = pygame.transform.scale(self.__background, GameSettings.SCREEN_SIZE)
         self.__background_rect = self.__background.get_rect()
-
-
         self.__last_update = pygame.time.get_ticks()
 
     def render(self):
@@ -42,7 +40,9 @@ class PlayingView(View):
         self.check_player_collision(self.__game.mobs)
 
         if self.__game.getLives() == 0:
-            self.__game.game_over = True
+            # self.__game.game_over = True
+            pygame.mouse.set_visible(True)
+            self.getGame().change_view(GameSettings.VIEW_GAME_OVER)
 
         self.clearText()
         self.getGame().getScoreboard().render()

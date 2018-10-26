@@ -1,6 +1,7 @@
 """
 button.py
 """
+import os
 
 import pygame
 from Shared.gameSettings import GameSettings
@@ -15,7 +16,6 @@ class Button():
         self.__screen = screen
         self.__screen_rect = screen.get_rect()
         self.__text = text
-
         # set the dimension and properties of the button.
         self.__width, self.__height = width, height
         self.__button_color = GameSettings.WHITE
@@ -24,7 +24,7 @@ class Button():
         # build the button's rect object and center itself.
         self.__button_rect = pygame.Rect(0, 0, self.__width, self.__height)
         self.__button_rect.center = screen_center
-        print(self.__screen_rect.center)
+        # print(self.__screen_rect.center)
 
         # prep the text of the button.
         self.__prep_text()
