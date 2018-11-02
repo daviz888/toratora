@@ -28,7 +28,25 @@ class Plane(Sprite):
         self.shooting = False
 
     def update(self):
+        # self.x_formation()
+        # self.square_reverse_formation()
+        self.square_formation()
 
+    def getHitPoints(self):
+        return self.__hitspoints
+
+    def shoot(self):
+        now = pygame.time.get_ticks()
+        if now - self.last_update > self.frame_rate:
+            self.shooting = True
+            self.last_update = now
+            bullets = Bullet(self.rect.centerx, self.rect.bottom, 10)
+            bullets.sfx.play()
+            self.allsprites.add(bullets)
+            self.enemy_bullets.add(bullets)
+
+    def square_formation(self):
+        """ square formation-> down->right->up->left"""
         self.rect.y += self.speedy
 
         if self.rect.y >= GameSettings.SCREEN_SIZE[1] / 2:
@@ -53,16 +71,46 @@ class Plane(Sprite):
             self.rect.x = 0
             self.shoot()
 
-    def getHitPoints(self):
-        return self.__hitspoints
+    def square_reverse_formation(self):
+        """ square formation-> down->right->up->left"""
+        self.rect.y += self.speedy
+        # track down the ship direction
+        down = False
+        if self.rect.y >= GameSettings.SCREEN_SIZE[1] / 2:
+            self.rect.x -= self.speedx
+            self.speedy = 0
+            self.shoot()
+            down = False
+        if self.rect.left <= 0 and self.shooting:
+            self.speedy = -3
+            self.rect.x = 0
+            self.shoot()
+        if self.rect.top <= self.rect.height and self.shooting:
+            self.speedy = 0
+            self.rect.x += self.speedx
+            self.rect.y = self.rect.height
+            self.shoot()
+            down = True
+        if self.rect.right >= GameSettings.SCREEN_SIZE[0] and down:
+            self.rect.x = GameSettings.SCREEN_SIZE[0] - self.rect.width
+            self.speedy = 3
+            self.rect.y += self.speedy
+            self.shoot()
 
-    def shoot(self):
-        now = pygame.time.get_ticks()
-        if now - self.last_update > self.frame_rate:
-            self.shooting = True
-            self.last_update = now
-            bullets = Bullet(self.rect.centerx, self.rect.bottom, 10)
-            bullets.sfx.play()
-            self.allsprites.add(bullets)
-            self.enemy_bullets.add(bullets)
+    def x_formation(self):
+        """ x formation-"""
+        self.rect.y += self.speedy
+        self.rect.x += self.speedx
+        self.shoot()
+
+        if self.rect.top <= GameSettings.SCREEN_SIZE[1] and self.rect.right > GameSettings.SCREEN_SIZE[0]:
+            self.rect.x = 0
+            self.speedy = 3
+            self.rect.x = 3
+
+        if self.rect.bottom >= GameSettings.SCREEN_SIZE[1]:
+            self.rect.x = 0
+            self.speedy = -3
+            self.speedx = 3
+
 

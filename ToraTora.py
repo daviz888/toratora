@@ -48,8 +48,9 @@ class ToraTora:
         self.enemy_squad = Group()
         self.allSprites = Group()
         self.allSprites.add(self.__player)
-        self.spawnMobs(8)
+        # self.spawnMobs(8)
         self.create_squad()
+        # self.create_squad_reverse()
         self.game_over = False
 
     def start(self):
@@ -128,16 +129,35 @@ class ToraTora:
             self.increaseScore(points)
         elif power == 5:
             self.increaseShield(20)
-        # self.__powerups.append(po wer)
 
     def power_down(self):
         self.__player.weapon_down()
+
+    # def create_squad(self):
+    #     for n in range(5):
+    #         ship = Plane(self.allSprites, self.enemy_bullets)
+    #         ship_width = ship.rect.width
+    #         ship.x = ship_width
+    #         ship.rect.x = ship.x + 2 * ship.x * (n * -1)
+    #         ship.rect.y = ship.rect.height + 2 * ship.rect.height * (n * -1)
+    #         self.allSprites.add(ship)
+    #         self.enemy_squad.add(ship)
 
     def create_squad(self):
         for n in range(5):
             ship = Plane(self.allSprites, self.enemy_bullets)
             ship_width = ship.rect.width
             ship.x = ship_width
+            ship.rect.x = ship.x
+            ship.rect.y = ship.rect.height + 2 * ship.rect.height * (n * -1)
+            self.allSprites.add(ship)
+            self.enemy_squad.add(ship)
+
+    def create_squad_reverse(self):
+        for n in range(5):
+            ship = Plane(self.allSprites, self.enemy_bullets)
+            ship_width = ship.rect.width
+            ship.x = GameSettings.SCREEN_SIZE[0] - ship_width
             ship.rect.x = ship.x
             ship.rect.y = ship.rect.height + 2 * ship.rect.height * (n * -1)
             self.allSprites.add(ship)

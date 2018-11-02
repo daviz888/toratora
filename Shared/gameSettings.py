@@ -56,7 +56,7 @@ class GameSettings:
     }
 
     EXPLOSION_SCALE = (64, 64)
-    PLAYER_LIVES = 1
+    PLAYER_LIVES = 3
 
     ENEMY_INTERVAL = 6000
     ENEMY_BULLET_HIT_POINTS = 10
