@@ -9,12 +9,13 @@ from Model.bullet import Bullet
 
 class Plane(Sprite):
 
-    def __init__(self, allsprites, enemy_bullets):
+    def __init__(self, allsprites, enemy_bullets, direction):
         super().__init__()
         # self.__filename = str(random.randrange(0, 5)) + '.png'
         self.allsprites = allsprites
         self.enemy_bullets = enemy_bullets
         self.__filename = "1.png"
+        self.__direction = direction
         self.image = pygame.image.load(os.path.join(GameSettings.ASSETS_PATH, self.__filename)).convert_alpha()
         self.rect = self.image.get_rect()
         self.radius = int(self.rect.width * .8 /2)
@@ -28,9 +29,14 @@ class Plane(Sprite):
         self.shooting = False
 
     def update(self):
-        # self.x_formation()
-        # self.square_reverse_formation()
-        self.square_formation()
+        if self.__direction == 0:
+            self.square_formation()
+        elif self.__direction == 1:
+            self.square_reverse_formation()
+        elif self.__direction == 2:
+            self.x_formation()
+        elif self.__direction == 3:
+            self.x_formation_reverse()
 
     def getHitPoints(self):
         return self.__hitspoints
@@ -112,5 +118,21 @@ class Plane(Sprite):
             self.rect.x = 0
             self.speedy = -3
             self.speedx = 3
+
+    def x_formation_reverse(self):
+        """ x formation-"""
+        self.rect.y += self.speedy
+        self.rect.x += self.speedx
+        self.shoot()
+
+        if self.rect.top >= GameSettings.SCREEN_SIZE[1] and self.rect.right <= 0:
+            self.rect.y = GameSettings.SCREEN_SIZE[1] - self.rect.height
+            self.speedy = -3
+            self.speedx = -3
+
+        if self.rect.bottom <= GameSettings.SCREEN_SIZE[1]:
+            # self.rect.x = GameSettings.SCREEN_SIZE[0] - self.rect.width
+            self.speedy = 3
+            self.speedx = -3
 
 

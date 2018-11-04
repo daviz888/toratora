@@ -1,6 +1,7 @@
 import os
 import pygame
 
+
 class GameSettings:
 
     SCREEN_SIZE = [800, 600]
@@ -30,7 +31,7 @@ class GameSettings:
     LIFE_BAR_LENGTH = 100
     LIFE_BAR_HEIGHT = 10
     
-    # default fontname.
+    # default font name.
     FONT_NAME = pygame.font.match_font('arial')
 
     # sprites

@@ -5,6 +5,7 @@ from Model.explosion import Explosion
 from Model.powerups import Powerup
 from Shared.gameSettings import GameSettings
 
+
 class PlayingView(View):
     """ Playing view class """
     def __init__(self, game):
@@ -24,10 +25,10 @@ class PlayingView(View):
         current = pygame.time.get_ticks()
         if current - self.__last_update > GameSettings.ENEMY_INTERVAL:
             self.__last_update = current
-            self.__game.create_squad()
+            self.__game.create_squad(self.__game.get_enemy_direction())
 
         if len(self.__game.enemy_squad) <= 0:
-            self.__game.create_squad_reverse()
+            self.__game.create_squad(self.__game.get_enemy_direction())
 
         # if len(self.__game.mobs) <= 0:
             # self.__game.spawnMobs(6)

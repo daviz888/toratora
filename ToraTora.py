@@ -1,4 +1,3 @@
-
 import pygame
 import random
 from pygame.sprite import Group
@@ -14,6 +13,7 @@ class ToraTora:
     def __init__(self):
         self.__lives = GameSettings.PLAYER_LIVES
         self.__score = 0
+        self.__enemy_direction = 0
 
         self.__level = Level(self)
         self.__shield = 100
@@ -37,7 +37,7 @@ class ToraTora:
             GameOverView(self),
             UserView(self),
         )
-        
+
         self.__currentView = GameSettings.VIEW_MENU
         self.__scoreboard = ScoreBoardView(self)
 
@@ -49,8 +49,7 @@ class ToraTora:
         self.allSprites = Group()
         self.allSprites.add(self.__player)
         # self.spawnMobs(8)
-        self.create_squad()
-        # self.create_squad_reverse()
+        # self.create_squad(self.__enemy_direction)
         self.game_over = False
 
     def start(self):
@@ -133,39 +132,56 @@ class ToraTora:
     def power_down(self):
         self.__player.weapon_down()
 
-    # def create_squad(self):
-    #     for n in range(5):
-    #         ship = Plane(self.allSprites, self.enemy_bullets)
-    #         ship_width = ship.rect.width
-    #         ship.x = ship_width
-    #         ship.rect.x = ship.x + 2 * ship.x * (n * -1)
-    #         ship.rect.y = ship.rect.height + 2 * ship.rect.height * (n * -1)
-    #         self.allSprites.add(ship)
-    #         self.enemy_squad.add(ship)
+    def create_squad(self, direction):
+        """Need to simplfy this function"""
+        if direction == 0:
+            for n in range(5):
+                ship = Plane(self.allSprites, self.enemy_bullets, direction)
+                ship_width = ship.rect.width
+                ship.x = ship_width
+                ship.rect.x = ship.x
+                ship.rect.y = ship.rect.height + 2 * ship.rect.height * (n * -1)
+                self.allSprites.add(ship)
+                self.enemy_squad.add(ship)
+        elif direction == 1:
+            for n in range(5):
+                ship = Plane(self.allSprites, self.enemy_bullets, direction)
+                ship_width = ship.rect.width
+                ship.x = GameSettings.SCREEN_SIZE[0] - ship_width
+                ship.rect.x = ship.x
+                ship.rect.y = ship.rect.height + 2 * ship.rect.height * (n * -1)
+                self.allSprites.add(ship)
+                self.enemy_squad.add(ship)
+        elif direction == 2:
+            for n in range(5):
+                ship = Plane(self.allSprites, self.enemy_bullets, direction)
+                ship_width = ship.rect.width
+                ship.x = ship_width
+                ship.rect.x = ship.x + 2 * ship.x * (n * -1)
+                ship.rect.y = ship.rect.height + 2 * ship.rect.height * (n * -1)
+                self.allSprites.add(ship)
+                self.enemy_squad.add(ship)
+        elif direction == 3:
+            for n in range(5):
+                ship = Plane(self.allSprites, self.enemy_bullets, direction)
+                ship_width = ship.rect.width
+                ship.x = GameSettings.SCREEN_SIZE[0] - ship_width
+                ship.rect.x = ship.x + (2 * ship.rect.width * n)
+                ship.rect.y = ship.rect.height + 2 * ship.rect.height * (n * -1)
+                self.allSprites.add(ship)
+                self.enemy_squad.add(ship)
 
-    def create_squad(self):
-        for n in range(5):
-            ship = Plane(self.allSprites, self.enemy_bullets)
-            ship_width = ship.rect.width
-            ship.x = ship_width
-            ship.rect.x = ship.x
-            ship.rect.y = ship.rect.height + 2 * ship.rect.height * (n * -1)
-            self.allSprites.add(ship)
-            self.enemy_squad.add(ship)
+    def get_enemy_direction(self):
+        if self.__enemy_direction <= 2:
+            self.__enemy_direction += 1
+        else:
+            self.__enemy_direction = 0
 
-    def create_squad_reverse(self):
-        for n in range(5):
-            ship = Plane(self.allSprites, self.enemy_bullets)
-            ship_width = ship.rect.width
-            ship.x = GameSettings.SCREEN_SIZE[0] - ship_width
-            ship.rect.x = ship.x
-            ship.rect.y = ship.rect.height + 2 * ship.rect.height * (n * -1)
-            self.allSprites.add(ship)
-            self.enemy_squad.add(ship)
+        return self.__enemy_direction
 
     def reset(self):
         pass
 
-    
+
 if __name__ == "__main__":
     ToraTora().start()
